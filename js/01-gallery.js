@@ -27,24 +27,52 @@ function galleryMarkup(galleryItems) {
     }).join("");
 };
 
-function onGalleryContainerClick(evt) { 
-    evt.preventDefault(); 
+function onGalleryContainerClick(evt) {
+    evt.preventDefault();
  
-  const isGalleryItemEl = evt.target.classList.contains('gallery__image'); 
+    const isGalleryItemEl = evt.target.classList.contains('gallery__image');
  
-  if (!isGalleryItemEl) { 
-    return; 
+    if (!isGalleryItemEl) {
+        return;
     };
     const instance = basicLightbox.create(`
     <img src="${evt.target.dataset.source}">
      `);
-    instance.show(() => {
-        window.addEventListener("keydown", evt => {
-            if (evt.code === "Escape") {
-               window.removeEventListener("keydown", evt) 
-                instance.close();
-            }
-        });
-    });
+    
+ instance.show()
+        window.addEventListener("keydown", onEscapeClose,{once:true})  
+              function onEscapeClose(evt) {
+        if (evt.code === "Escape") {
+            instance.close()
+          
+        }
+        console.log(evt.code)
+    }
+          
+      
+    
 };
 
+        // , {
+//         onShow: () => {
+//             window.addEventListener("keydown", onEscapeClose)
+            
+//         },
+
+//      onClose: () => {
+//             window.removeEventListener("keydown", onEscapeClose)
+            
+//         }
+//     })
+//     instance.show()
+    
+//     function onEscapeClose(evt) {
+//         if (evt.code === "Escape") {
+//             instance.close()
+          
+//         }
+//         console.log(evt.code)
+//     }
+
+// };
+             
